@@ -1,5 +1,8 @@
 import pyttsx3
 import speech_recognition as sr
+import subprocess
+import os
+import sys
 
 user_name = input("Enter your name here: ")
 
@@ -31,7 +34,7 @@ while True:
 
             if "hello" in text or "hi" in text:
                 speak(f"Hello {user_name}, How are you?")
-                #engine.say(" Hello how are you ?")
+                engine.say(" Hello how are you ?")
 
             elif "i am fine" in text or "i am okay" in text or "i am good" in text:
                 speak("Glad to hear that!") 
@@ -39,7 +42,24 @@ while True:
             elif "bye" in text or "exit" in text or "quit" in text:
                 speak("Goodbye! Have a great day.")
                 break
-            
+
+            elif "give weather update" in text or "show weather details" in text or "open weather page" in text or "weather" in text:
+                speak("Sure, Opening the weather section...")
+
+                weather_script = r"c:\Users\ARCHAN\Documents\AgroVeda-notebooks\weather_app.py"
+
+                subprocess.Popen(["streamlit","run",weather_script])
+                speak("Opened weather page.")
+
+            elif "crop calender" in text or "crop timings" in text or "best time for crops" in text:
+                engine.say("Sure, Opening crop calender section.")
+
+                crop_cal = r"c:\Users\ARCHAN\Documents\AgroVeda-notebooks\crop_calender.py"
+
+                subprocess.Popen(["streamlit","run",crop_cal])
+                engine.say("Opened crop calender. Check what will be the best time for farming for you")
+
+
 
     except sr.UnknownValueError:
         print("Could not understand audio.")
